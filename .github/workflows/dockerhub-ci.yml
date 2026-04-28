@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          dockerfile: ./dockerfile-gianmarco/Dockerfile
+          dockerfile: ./dockerfile-gianmarco/Dockerfile # Dockerfile en la carpeta dockerfile-gianmarco
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/webflux-nosql:latest
