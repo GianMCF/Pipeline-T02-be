@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          #dockerfile: Dockerfile   # Dockerfile en la raíz del proyecto
+          # dockerfile: Dockerfile   # Dockerfile en la raíz del proyecto
           file: ./dockerfile-gianmarco/Dockerfile          # Dockerfile en la carpeta dockerfile-gianmarco
           push: true
           tags: |
