@@ -1,0 +1,5 @@
+# kubectl apply -f gianmarco-castillo-03-namespace.yml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gianmarco-castillo-03-namespace

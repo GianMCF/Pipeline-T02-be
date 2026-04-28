@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: gianmarco-castillo-03-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend-container
+          image: gianmarcocastillof/gianmarco-webflux-nosql:1.0
+          ports:
+            - containerPort: 8088
+          env:
+            - name: DB_URI
+              value: mongodb://mongo-service:27017
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: gianmarco-castillo-03-secret

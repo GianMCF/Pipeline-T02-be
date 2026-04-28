@@ -1,0 +1,10 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: spring-webflux-nosql
+  data:
+    mongodb:
+      database: ${DB_NAME} # vinum-aw-db
+      uri: ${DB_URI}  # mongodb+srv://alejandrosotocardenas_db_user:F1Qvd3Dg5ueBpAvF@cluster0.y3mucnr.mongodb.net/vinum_aw?retryWrites=true&w=majority |||||| mongodb+srv://Vaw:VINUM2607@clusterz.q7d9mxv.mongodb.net/?appName=ClusterZ
