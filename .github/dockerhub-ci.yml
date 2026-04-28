@@ -36,7 +36,7 @@ jobs:
         with:
           context: .
           #dockerfile: Dockerfile   # Dockerfile en la raíz del proyecto
-          file: ./dockerfile-gianmarco/Dockerfile           # Dockerfile en la carpeta dockerfile-gianmarco
+          file: ./dockerfile-gianmarco/Dockerfile          # Dockerfile en la carpeta dockerfile-gianmarco
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/webflux-nosql:latest
