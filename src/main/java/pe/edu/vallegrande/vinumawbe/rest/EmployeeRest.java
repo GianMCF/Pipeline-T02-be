@@ -9,7 +9,6 @@ import pe.edu.vallegrande.vinumawbe.service.EmployeeService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/api/employee")
 @Tag(name = "Empleados", description = "CRUD reactivo de empleados")

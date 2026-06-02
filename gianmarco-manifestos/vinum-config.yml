@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vinum-config
+  namespace: vinum-aw
+
+data:
+  MONGO_URI: mongodb://32.192.151.73:27017
+  DB_NAME: vinum-aw-db
+  CORS_ALLOWED_ORIGIN: http://cambiarporipreal:5300
+  API_IP_URL: http://cambiarporipreal:8088/v1/api

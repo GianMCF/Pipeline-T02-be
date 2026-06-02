@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
     Flux<User> findByStatus(boolean status);
-    Mono<User> findByEmail(String email);
+    Mono<User> findByUsername(String username);
 }

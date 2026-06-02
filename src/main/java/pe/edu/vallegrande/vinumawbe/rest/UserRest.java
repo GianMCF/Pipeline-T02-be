@@ -3,14 +3,16 @@ package pe.edu.vallegrande.vinumawbe.rest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.vallegrande.vinumawbe.dto.AuthRequest;
+import pe.edu.vallegrande.vinumawbe.dto.AuthResponse;
 import pe.edu.vallegrande.vinumawbe.model.User;
 import pe.edu.vallegrande.vinumawbe.service.UserService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 
-
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/api/user")
 @Tag(name = "Usuarios", description = "CRUD reactivo de usuarios")
@@ -41,34 +43,72 @@ public class UserRest {
         return userService.findByStatus(status);
     }
 
-    @Operation(summary = "Inicio de sesión de usuario", description = "Permite un inicio de sesión de usuario")
-    @PostMapping("/login")
-    public Mono<User> login(@RequestBody User user) {
-        return userService.login(user.getEmail(), user.getPassword())
-                .switchIfEmpty(Mono.error(new RuntimeException("Credenciales incorrectas")));
-    }
-
     @Operation(summary = "Registrar usuario", description = "Registra un nuevo usuario en la base de datos")
     @PostMapping("/register")
-    public Mono<User> save(@RequestBody User user) {
-        return userService.save(user);
+    public Mono<User> register(@RequestBody User user) {
+        return userService.register(user);
     }
 
-    @Operation(summary = "Actualizar usuario", description = "Modifica datos de un usuario en la base de datos")
-    @PutMapping ("/update")
-    public Mono<User> update(@RequestBody User user) {
-        return userService.update(user);
+    @Operation(summary = "Inicio de sesión de usuario", description = "Permite un inicio de sesión de usuario")
+    @PostMapping("/login")
+    public Mono<AuthResponse> login(
+            @RequestBody AuthRequest request) {
+        return userService.login(request);
     }
 
+    // MÉTODOS DE USUARIO PARA FRONTEND
+    @Operation(summary = "Listar datos de un usuario", description = "Listar datos de a un usuario en la base de datos")
+    @GetMapping("/me")
+    public Mono<User> getCurrentUser() {
+
+        return ReactiveSecurityContextHolder.getContext()
+
+                .map(ctx -> ctx.getAuthentication())
+
+                .map(auth -> auth.getName())
+
+                .flatMap(userService::findByUsername);
+    }
+    @Operation(summary = "Actualizar a un usuario", description = "Actualizar a un usuario en la base de datos")
+    @PutMapping("/me")
+    public Mono<User> updateCurrentUser(
+            @RequestBody User updatedUser
+    ) {
+
+        return ReactiveSecurityContextHolder.getContext()
+
+                .map(ctx -> ctx.getAuthentication())
+
+                .map(auth -> auth.getName())
+
+                .flatMap(username ->
+                        userService.updateCurrentUser(
+                                username,
+                                updatedUser
+                        )
+                );
+    }
     @Operation(summary = "Eliminar lógicamente a un usuario", description = "Desactivar a un usuario en la base de datos")
-    @DeleteMapping("/delete/{id}")
-    public Mono<User> delete(@PathVariable String id) {
-        return userService.delete(id);
+    @DeleteMapping("/me")
+    public Mono<User> deleteCurrentUser() {
+
+        return ReactiveSecurityContextHolder.getContext()
+
+                .map(ctx -> ctx.getAuthentication())
+
+                .map(auth -> auth.getName())
+
+                .flatMap(userService::deleteCurrentUser);
     }
 
     @Operation(summary = "Restaurar lógicamente a un usuario", description = "Re-activar a un usuario en la base de datos")
-    @PutMapping("/restore/{id}")
-    public Mono<User> restore(@PathVariable String id) {
-        return userService.restore(id);
+    @PutMapping("/restore/{username}")
+    public Mono<ResponseEntity<?>> restoreUser(
+            @PathVariable String username
+    ) {
+
+        return userService
+                .restoreCurrentUser(username)
+                .map(user -> ResponseEntity.ok(user));
     }
 }

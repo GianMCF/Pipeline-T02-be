@@ -124,7 +124,7 @@ public class SaleServiceImpl implements SaleService {
                             .paymentMethod(paymentRef)
                             .products(details)
                             .total(total)
-                            .status(false)
+                            .status(true)
                             .saleDate(LocalDateTime.now())
                             .build();
                 });

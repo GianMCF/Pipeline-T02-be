@@ -1,0 +1,38 @@
+# Git metadata
+.git
+.gitignore
+README.md
+
+# Build artifacts (Maven/Gradle)
+target/
+build/
+out/
+bin/
+*.jar
+*.war
+*.ear
+
+# Dependency caches
+.gradle/
+.mvn/
+
+# IDE and Project settings
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# Docker files
+Dockerfile
+.dockerignore
+gianmarco-manifestos
+Alejandro-Manifest
+
+# Logs and temporary files
+*.log
+tmp/
+
+# Exclusive File for Elastic Beanstalk Deployment
+Procfile

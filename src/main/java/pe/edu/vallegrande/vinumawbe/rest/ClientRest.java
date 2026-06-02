@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/api/client")
 @Tag(name = "Clientes", description = "CRUD reactivo de clientes")

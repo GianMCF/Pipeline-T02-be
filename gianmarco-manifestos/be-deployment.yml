@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-deployment
+  namespace: vinum-aw
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: backend
+
+  template:
+    metadata:
+      labels:
+        app: backend
+
+    spec:
+      containers:
+        - name: backend
+          image: gianmarcocastillof/vinum-aw-be:1.0
+
+          ports:
+            - containerPort: 8088
+
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: vinum-config
+                  key: MONGO_URI
+
+            - name: DB
+              valueFrom:
+                configMapKeyRef:
+                  name: vinum-config
+                  key: DB_NAME
+
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: vinum-secret
+                  key: JWT_SECRET
+
+            - name: AES_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: vinum-secret
+                  key: AES_SECRET
+
+            - name: CORS_ALLOWED_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: vinum-config
+                  key: CORS_ALLOWED_ORIGIN

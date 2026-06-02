@@ -20,4 +20,4 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # docker push gianmarcocastillof/gianmarco-webflux-nosql:1.0
 
-# docker build -t gianmarcocastillof/gianmarco-webflux-nosql:5.0 -f dockerfile-gianmarco/Dockerfile .
+# docker build -t gianmarcocastillof/gianmarco-webflux-nosql:1.0 -f dockerfile-gianmarco/Dockerfile .

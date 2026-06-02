@@ -11,7 +11,6 @@ import pe.edu.vallegrande.vinumawbe.service.SaleService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/api/sale")
 @Tag(name = "Ventas", description = "CRUD reactivo de ventas")

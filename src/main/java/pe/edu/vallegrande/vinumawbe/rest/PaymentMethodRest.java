@@ -9,7 +9,6 @@ import pe.edu.vallegrande.vinumawbe.service.PaymentMethodService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/api/payment_method")
 @Tag(name = "Métodos de pago", description = "CRUD reactivo de métodos de pago")

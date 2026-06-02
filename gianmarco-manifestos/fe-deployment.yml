@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-deployment
+  namespace: vinum-aw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: fe-container
+          image: gianmarcocastillof/vinum-aw-fe:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5300
+
+          env:
+            - name: API_IP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: vinum-config
+                  key: API_IP_URL
