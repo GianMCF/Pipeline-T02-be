@@ -36,10 +36,12 @@ jobs:
       - name: Run Trivy Filesystem Scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          scan-type: 'fs'
+           scan-type: 'fs'
           scan-ref: '.'
+          format: 'table'
+          vuln-type: 'library'
           severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
-          ignore-unfixed: true
+          ignore-unfixed: false
           exit-code: '0' # 0: Falla por vulnerabilidades | 1: No falla por vulnerabilidades
 
       - name: Pipeline Finished
